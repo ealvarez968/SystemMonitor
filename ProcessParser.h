@@ -17,6 +17,7 @@
 #include <time.h>
 #include <unistd.h>
 #include "constants.h"
+#include "util.h"
 
 
 using namespace std;
@@ -45,3 +46,29 @@ private:
 };
 
 // TODO: Define all of the above functions below:
+//takes a pid
+string ProcessParser::getVmSize(string pid){
+  string line;
+  string name = "vmData";
+  string value;
+  float result;
+  
+  ifstream stream = Util::getStream((Path::basePath() +  pid + Path::statusPath()));
+  while(getline(stream,line)){
+  	if(line.compare(0,name.size(),name) == 0){
+    	istringstream buf(line);
+    	istream_iterator<string> beg(buf), end;
+    	vector<string> values(beg,end);
+    	result = (stof(values[1])/float(1024));
+    	break;
+    }
+  }
+  return to_string(result);
+}
+
+string ProcessParser::getCpuPercent(string pid){
+
+}
+
+
+  
