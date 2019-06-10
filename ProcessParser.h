@@ -49,13 +49,15 @@ private:
 //takes a pid
 string ProcessParser::getVmSize(string pid){
   string line;
-  string name = "vmData";
+  string name = "VmData";
   string value;
   float result;
   
   ifstream stream = Util::getStream((Path::basePath() +  pid + Path::statusPath()));
   while(getline(stream,line)){
+    
   	if(line.compare(0,name.size(),name) == 0){
+       std::cout << name<<"name";
     	istringstream buf(line);
     	istream_iterator<string> beg(buf), end;
     	vector<string> values(beg,end);
@@ -67,7 +69,21 @@ string ProcessParser::getVmSize(string pid){
 }
 
 string ProcessParser::getCpuPercent(string pid){
-
+  
+	ifstream stream = Util::getStream((Path::basePath()+ pid + "/" + Path::statPath()));
+  	getline(stream, line);
+    string str = line;
+    istringstream buf(str);
+    istream_iterator<string> beg(buf), end;
+    vector<string> values(beg, end); // done!
+  	// acquiring relevant times for calculation of active occupation of CPU for selected process
+  	//stof string to float
+    float utime = stof(ProcessParser::getProcUpTime(pid));
+  	float stime = stof(values[14]);
+    float cutime = stof(values[15]);
+    float cstime = stof(values[16]);
+    float starttime = stof(values[21]);
+ 
 }
 
 
