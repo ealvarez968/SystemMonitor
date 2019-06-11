@@ -21,7 +21,16 @@ int main(){
 
   	//std::cout<<ProcessParser::getCmd("28011");
 
-  	std::cout<<ProcessParser::getNumberOfCores();
+  //	std::cout<<ProcessParser::getNumberOfCores();
+  //std::cout<<ProcessParser::getSysCpuPercent();
+
+  /*for(std::string process : ProcessParser::getSysCpuPercent("")){
+      cout<<process<<"\n";
+    }*/
+
+  
+  //std::cout<<ProcessParser::getSysRamPercent();
+  std::cout<<ProcessParser::getNumberOfRunningProcesses();
   	std::cout<<"\n";
   	//std::cout<<"working"<<ProcessParser::getProcUpTime("1149");
 	return 0;
