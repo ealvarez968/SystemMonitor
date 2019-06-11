@@ -13,7 +13,20 @@ int main(){
   	//ProcessParser::getVmSize working
 	//std::cout<<"working"<< ProcessParser::getVmSize("481");
   
-  	std::cout<<"working"<< ProcessParser::getVmSize("481");
+  	//std::cout<<"working"<< ProcessParser::getCpuPercent("702");
+  	//std::cout<<""<<ProcessParser::getProcUser("28011");
+  	/*for(std::string process : ProcessParser::getPidList()){
+  		cout<<process<<"\n";
+  	}*/
+
+  	//std::cout<<ProcessParser::getCmd("28011");
+
+  	std::cout<<ProcessParser::getNumberOfCores();
+  	std::cout<<"\n";
+  	//std::cout<<"working"<<ProcessParser::getProcUpTime("1149");
 	return 0;
 }
+
+
+
 
