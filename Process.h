@@ -56,7 +56,7 @@ string Process::getProcess(){
                     + "     "
                     + this->cpu.substr(0,5)
                     + "     "
-                    + this->up_time.substr(0,5)
+                    + this->upTime.substr(0,5)
                     + "    "
                     + this->cmd.substr(0,30)
                     + "...");

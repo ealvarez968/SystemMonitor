@@ -30,7 +30,7 @@ int main(){
 
   
   //std::cout<<ProcessParser::getSysRamPercent();
-  std::cout<<ProcessParser::getNumberOfRunningProcesses();
+  std::cout<<ProcessParser::isPidExisting("690");
   	std::cout<<"\n";
   	//std::cout<<"working"<<ProcessParser::getProcUpTime("1149");
 	return 0;

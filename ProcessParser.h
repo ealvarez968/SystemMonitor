@@ -36,7 +36,8 @@ private:
     static long int getSysUpTime();
     static std::string getProcUpTime(string pid);
     static string getProcUser(string pid);
-    static vector<string> getSysCpuPercent(string coreNumber = "");
+    static vector<string> getSysCpuPercent(string coreNumber);
+    static vector<string> getSysCpuPercent();
     static float getSysRamPercent();
     static string getSysKernelVersion();
     static int getNumberOfCores();
@@ -47,6 +48,16 @@ private:
     static std::string PrintCpuStats(std::vector<std::string> values1, std::vector<std::string>values2);
     static bool isPidExisting(string pid);
 };
+
+bool ProcessParser::isPidExisting(string pid){
+    
+    DIR* dir;
+
+    if(!(dir = opendir(  (Path::basePath()+pid).c_str() ))) {
+        return false;
+    }
+    return true;
+}
 
 // TODO: Define all of the above functions below:
 //takes a pid
@@ -171,6 +182,7 @@ vector<string> ProcessParser::getPidList(){
     vector<string> container;
 
     if(!(dir = opendir("/proc"))){
+        cout<<"porquee";
         throw std::runtime_error(std::strerror(errno));
     }
 
@@ -237,7 +249,7 @@ float getSysIdleCpuTime(vector<string>values){
     return (stof(values[S_IDLE]) + stof(values[S_IOWAIT]));
 }
 
-vector<string> ProcessParser::getSysCpuPercent(string coreNumber = ""){
+vector<string> ProcessParser::getSysCpuPercent(string coreNumber){
     string line;
     string name = "cpu"+coreNumber;
     ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
@@ -254,6 +266,25 @@ vector<string> ProcessParser::getSysCpuPercent(string coreNumber = ""){
 
     return (vector<string>());
 }
+
+vector<string> ProcessParser::getSysCpuPercent(){
+    string line;
+    string name = "cpu";
+    ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
+    while(getline(stream,line)){
+       
+        if(line.compare(0,name.length(),name) == 0){
+
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+            return values;
+        }
+    }
+
+    return (vector<string>());
+}
+
 
 std::string ProcessParser::PrintCpuStats(std::vector<std::string> values1, std::vector<std::string>values2){
     /*
